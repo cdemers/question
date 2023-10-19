@@ -1,0 +1,41 @@
+name: Update Homebrew Formula
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  update-formula:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install requests
+
+    - name: Clone Homebrew Tap Repo
+      run: git clone https://github.com/cdemers/homebrew-tools-tap.git
+
+    - name: Update Formula
+      run: |
+        VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
+        sed -i "s/version \".*\"/version \"$VERSION\"/" homebrew-tools-tap/Formulas/question.rb
+        sed -i "s|url \".*\"|url \"https://github.com/cdemers/question/releases/download/$VERSION/question.tgz\"|" homebrew-tools-tap/Formulas/question.rb
+
+    - name: Commit and Push Formula
+      run: |
+        cd homebrew-tools-tap
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add Formulas/question.rb
+        git commit -m "Update question formula to version $VERSION"
+        git push
+
