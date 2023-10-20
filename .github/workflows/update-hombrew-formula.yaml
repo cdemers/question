@@ -22,7 +22,7 @@ jobs:
       run: pip install requests
 
     - name: Clone Homebrew Tap Repo
-      run: git clone https://github.com/cdemers/homebrew-tools-tap.git
+      run: git clone https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/cdemers/homebrew-tools-tap.git
 
     - name: Update Formula
       run: |
