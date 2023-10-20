@@ -25,9 +25,9 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
-          prerelease: false
+          prerelease: true
         env:
-          GITHUB_TOKEN: ${{ secrets.HOMEBREW_TOOLS_TAP_RW_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Brew Formula as Release Asset
         id: upload-release-asset
@@ -38,5 +38,5 @@ jobs:
           asset_name: question.tgz
           asset_content_type: application/gzip
         env:
-          GITHUB_TOKEN: ${{ secrets.HOMEBREW_TOOLS_TAP_RW_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
