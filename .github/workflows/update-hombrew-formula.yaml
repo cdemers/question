@@ -26,15 +26,15 @@ jobs:
     - name: Update Formula
       run: |
         VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
-        sed -i "s/version \".*\"/version \"$VERSION\"/" homebrew-tools/Formulas/question.rb
-        sed -i "s|url \".*\"|url \"https://github.com/cdemers/question/releases/download/$VERSION/question.tgz\"|" homebrew-tools/Formulas/question.rb
+        sed -i "s/version \".*\"/version \"$VERSION\"/" homebrew-tools/Formula/question.rb
+        sed -i "s|url \".*\"|url \"https://github.com/cdemers/question/releases/download/$VERSION/question.tgz\"|" homebrew-tools/Formula/question.rb
 
     - name: Commit and Push Formula
       run: |
         cd homebrew-tools
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add Formulas/question.rb
+        git add Formula/question.rb
         git commit -m "Update question formula to version $VERSION"
         git push
 
