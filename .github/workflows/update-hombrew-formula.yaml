@@ -21,17 +21,17 @@ jobs:
       run: pip install requests
 
     - name: Clone Homebrew Tap Repo
-      run: git clone https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/cdemers/homebrew-tools-tap.git
+      run: git clone https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/cdemers/homebrew-tools.git
 
     - name: Update Formula
       run: |
         VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
-        sed -i "s/version \".*\"/version \"$VERSION\"/" homebrew-tools-tap/Formulas/question.rb
-        sed -i "s|url \".*\"|url \"https://github.com/cdemers/question/releases/download/$VERSION/question.tgz\"|" homebrew-tools-tap/Formulas/question.rb
+        sed -i "s/version \".*\"/version \"$VERSION\"/" homebrew-tools/Formulas/question.rb
+        sed -i "s|url \".*\"|url \"https://github.com/cdemers/question/releases/download/$VERSION/question.tgz\"|" homebrew-tools/Formulas/question.rb
 
     - name: Commit and Push Formula
       run: |
-        cd homebrew-tools-tap
+        cd homebrew-tools
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add Formulas/question.rb
