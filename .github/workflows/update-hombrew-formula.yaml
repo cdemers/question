@@ -1,9 +1,8 @@
 name: Update Homebrew Formula
 
 on:
-  push:
-    tags:
-      - [published]
+  release:
+    types: [published]
 
 jobs:
   update-formula:
