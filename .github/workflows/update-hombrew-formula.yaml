@@ -26,8 +26,11 @@ jobs:
     - name: Update Formula
       run: |
         VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
+        wget https://github.com/cdemers/question/releases/download/$VERSION/question.tgz
+        SHA256=$(sha256sum question.tgz | awk '{print $1}')
         sed -i "s/version \".*\"/version \"$VERSION\"/" homebrew-tools/Formula/question.rb
         sed -i "s|url \".*\"|url \"https://github.com/cdemers/question/releases/download/$VERSION/question.tgz\"|" homebrew-tools/Formula/question.rb
+        sed -i "s/sha256 \".*\"/sha256 \"$SHA256\"/" homebrew-tools/Formula/question.rb
 
     - name: Commit and Push Formula
       run: |
