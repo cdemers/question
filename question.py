@@ -20,6 +20,9 @@ if not api_key:
 
 openai.api_key = api_key
 
+# App version
+APP_VERSION = "0.7.0"
+
 def call_openai_api(question):
     try:
         MODEL = "gpt-4-0613"
@@ -43,16 +46,21 @@ if __name__ == "__main__":
         exit(1)
 
     # Get user input from command line argument
-    question = sys.argv[1]
-    logging.info(f"Received input: {question}")
+    arg = sys.argv[1]
 
-    # Call OpenAI API
-    response = call_openai_api(question)
-
-    # Output response or failure message
-    if response:
-        markdown_response = Markdown(response)
-        rprint("Assistant says:", markdown_response)
+    if arg == "--version":
+        print(f"App version: {APP_VERSION}")
+        exit(0)
     else:
-        print("Failed to get a response.")
+        logging.info(f"Received input: {arg}")
+
+        # Call OpenAI API
+        response = call_openai_api(arg)
+
+        # Output response or failure message
+        if response:
+            markdown_response = Markdown(response)
+            rprint("Assistant says:", markdown_response)
+        else:
+            print("Failed to get a response.")
 
