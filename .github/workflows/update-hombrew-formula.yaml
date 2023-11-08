@@ -18,7 +18,7 @@ jobs:
         python-version: '3.x'
 
     - name: Install dependencies
-      run: pip install requests
+      run: pip install requests openai
 
     - name: Clone Homebrew Tap Repo
       run: git clone https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/cdemers/homebrew-tools.git
