@@ -25,7 +25,8 @@ APP_VERSION = "0.7.0"
 
 def call_openai_api(question):
     try:
-        MODEL = "gpt-4-0613"
+        LATEST_STABLE_MODEL = "gpt-4"
+        MODEL = "gpt-4-1106-preview"
         messages = [{"role": "user", "content": question}]
         
         # Make API call
